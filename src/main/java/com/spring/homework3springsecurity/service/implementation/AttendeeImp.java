@@ -18,8 +18,8 @@ public class AttendeeImp implements AttendeeService {
     }
 
     @Override
-    public List<Attendee> getALlAttendees() {
-        return attendeeRepo.getAllAttendees();
+    public List<Attendee> getALlAttendees(Integer page, Integer size) {
+        return attendeeRepo.getAllAttendees(page,size);
     }
 
     @Override

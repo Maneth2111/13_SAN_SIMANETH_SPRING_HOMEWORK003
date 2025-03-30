@@ -6,7 +6,7 @@ import com.spring.homework3springsecurity.model.request.AttendeeRequest;
 import java.util.List;
 
 public interface AttendeeService {
-    List<Attendee> getALlAttendees();
+    List<Attendee> getALlAttendees(Integer page,Integer size);
 
     Attendee getAttendeeById(Integer attendeeId);
 

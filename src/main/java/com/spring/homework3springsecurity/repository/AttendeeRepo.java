@@ -13,16 +13,20 @@ public interface AttendeeRepo {
 
     @Select("""
     SELECT * FROM attendees
+    offset  #{size} * (#{page}-1)
+    limit   #{size}
     """)
     @Results(id = "attendees",value = {
             @Result(property = "attendeeId",column = "attendee_id"),
             @Result(property = "attendeeName",column = "attendee_name")
     })
-    List<Attendee> getAllAttendees();
+    List<Attendee> getAllAttendees(Integer page,Integer size);
 
     @Select("""
-    SELECT * FROM attendees
-    WHERE attendee_id = #{attendeeId} 
+    SELECT * FROM attendees a
+    JOIN event_attendee ea ON a.attendee_id = ea.attendee_id
+    WHERE ea.event_id = #{eventId}
+
     """)
     @ResultMap("attendees")
     Attendee getAttendeeById(Integer attendeeId);
@@ -41,7 +45,6 @@ public interface AttendeeRepo {
          email= #{email}
     where attendees.attendee_id = 1;
     """)
-
     void updateAttendee(@RequestParam Integer attendeeId,@RequestParam("attendeeName")String attendeeName,@RequestParam("email") String email);
 
 
@@ -50,4 +53,13 @@ public interface AttendeeRepo {
     WHERE attendee_id = #{attendeeId}
     """)
     void deleteAttendeeById(Integer attendeeId);
+
+    @Insert("""
+    INSERT INTO event_attendee (event_id, attendee_id)
+    VALUES (#{eventId}, #{attendeeId})
+    """)
+    void addEventAttendee(@Param("eventId") Integer eventId, @Param("attendeeId") Integer attendeeId);
+
 }
+
+

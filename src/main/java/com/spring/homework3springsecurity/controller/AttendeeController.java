@@ -1,8 +1,6 @@
 package com.spring.homework3springsecurity.controller;
 
-
 import com.spring.homework3springsecurity.model.enity.Attendee;
-import com.spring.homework3springsecurity.model.enity.Venue;
 import com.spring.homework3springsecurity.model.request.AttendeeRequest;
 import com.spring.homework3springsecurity.model.response.ApiResponse;
 import com.spring.homework3springsecurity.service.AttendeeService;
@@ -27,8 +25,8 @@ public class AttendeeController {
 
     @GetMapping
     @Operation(summary = "Get all Attendees")
-    public ResponseEntity<ApiResponse<List<Attendee>>> getAllAttendees() {
-        List<Attendee> attendees = attendeeService.getALlAttendees();
+    public ResponseEntity<ApiResponse<List<Attendee>>> getAllAttendees(@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer size) {
+        List<Attendee> attendees = attendeeService.getALlAttendees(page,size);
         ApiResponse <List<Attendee>> response = new ApiResponse<>(
                 "Get all attendees",
                 attendees,
@@ -84,6 +82,7 @@ public class AttendeeController {
     }
 
 //    DELETE AN ATTENDEE
+
     @DeleteMapping("/{attendeeId}")
     @Operation(summary = "Delete an Attendee")
     public ResponseEntity<ApiResponse<Attendee>> deleteAttendee(@PathVariable Integer attendeeId){

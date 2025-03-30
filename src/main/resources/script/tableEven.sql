@@ -28,3 +28,6 @@ CREATE TABLE event_attendee (
                                 FOREIGN KEY (attendee_id) REFERENCES attendees(attendee_id) ON DELETE CASCADE,
                                 UNIQUE (event_id, attendee_id)
 );
+
+
+

@@ -5,6 +5,7 @@ import com.spring.homework3springsecurity.model.request.AttendeeRequest;
 import com.spring.homework3springsecurity.model.response.ApiResponse;
 import com.spring.homework3springsecurity.service.AttendeeService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class AttendeeController {
 
     @PostMapping()
     @Operation(summary = "Add an Attendee")
-    public ResponseEntity<ApiResponse<Attendee>> addAttendee(@RequestBody AttendeeRequest request){
+    public ResponseEntity<ApiResponse<Attendee>> addAttendee(@Valid @RequestBody AttendeeRequest request){
         Attendee attendees = attendeeService.addAttendee(request);
         ApiResponse<Attendee> response = new ApiResponse<>(
                 "Add an Attendee",

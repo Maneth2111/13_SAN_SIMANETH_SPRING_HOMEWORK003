@@ -5,6 +5,7 @@ import com.spring.homework3springsecurity.model.request.VenuesRequest;
 import com.spring.homework3springsecurity.model.response.ApiResponse;
 import com.spring.homework3springsecurity.service.VenueService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class VenueController {
 
     @PostMapping
     @Operation(summary = "Add a venue")
-    public ResponseEntity<ApiResponse<Venue>> addNewVenue(@RequestBody VenuesRequest request) {
+    public ResponseEntity<ApiResponse<Venue>> addNewVenue(@Valid @RequestBody VenuesRequest request) {
         Venue venues = venueService.addNewVenue(request);
         ApiResponse<Venue> response = new ApiResponse<>(
                 "Add new Venue",

@@ -7,6 +7,7 @@ import com.spring.homework3springsecurity.model.request.EventRequest;
 import com.spring.homework3springsecurity.model.response.ApiResponse;
 import com.spring.homework3springsecurity.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class EventController {
 
     @PostMapping
     @Operation(summary = "Add New Event")
-    public ResponseEntity<ApiResponse<Event>> createNewEvent(@RequestBody EventRequest  request){
+    public ResponseEntity<ApiResponse<Event>> createNewEvent(@Valid @RequestBody EventRequest  request){
         Event events = eventService.createNewEvent(request);
         ApiResponse<Event> response = new ApiResponse<>(
                 "Add an Attendee",
